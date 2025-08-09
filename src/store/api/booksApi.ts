@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 interface SearchBooksParams {
   title: string
   page?: number
-  IPP: number
+  ipp: number
 }
 
 export const booksApi = createApi({
@@ -15,11 +15,11 @@ export const booksApi = createApi({
   tagTypes: ["Book"],
   endpoints: (builder) => ({
     searchBooks: builder.query<BookSearchResponse, SearchBooksParams>({
-      query: ({ title, page = 1, IPP }) => {
-        const offset = (page - 1) * IPP
+      query: ({ title, page = 1, ipp }) => {
+        const offset = (page - 1) * ipp
         return `search.json?q=title:${encodeURIComponent(
           title
-        )}+AND+cover_i:*&limit=${IPP}&offset=${offset}`
+        )}+AND+cover_i:*&limit=${ipp}&offset=${offset}`
       },
 
       transformResponse: (
@@ -30,7 +30,7 @@ export const booksApi = createApi({
         return {
           ...response,
           currentPage: arg.page || 1,
-          totalPages: Math.ceil(response.numFound / arg.IPP),
+          totalPages: Math.ceil(response.numFound / arg.ipp),
         }
       },
 

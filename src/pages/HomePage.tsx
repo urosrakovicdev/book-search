@@ -51,7 +51,7 @@ const HomePage = () => {
     {
       title: debouncedSearchTerm,
       page: currentPage,
-      IPP: IPP,
+      ipp: IPP,
     },
     {
       skip: !debouncedSearchTerm.trim(),
@@ -138,7 +138,6 @@ const HomePage = () => {
   return (
     <div className="bg-gray-100 h-full flex">
       <div className="flex-1">
-        {" "}
         <div className="w-full bg-white shadow-sm border-b border-gray-200">
           <div className="px-6 py-6">
             <div className="flex items-center justify-between mb-6">
@@ -191,8 +190,8 @@ const HomePage = () => {
         </div>
 
         {previouslyViewed.length === 0 ? (
-          <div className="text-center py-8">
-            <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+          <div className="flex flex-col items-center gap-1 py-8">
+            <BookOpen className="w-12 h-12 text-gray-300 mb-3" />
             <p className="text-gray-500 text-sm">No books viewed yet</p>
             <p className="text-gray-400 text-xs mt-1">
               Click on any book to see it here
@@ -203,18 +202,16 @@ const HomePage = () => {
             {previouslyViewed.map((book, index) => (
               <div
                 key={`${book.bookId}-${index}`}
-                className="flex items-center gap-3 p-3 rounded-lg bg-blue-100 hover:bg-blue-300 cursor-pointer group"
+                className="flex items-center gap-3 p-3 rounded-lg bg-blue-100 hover:bg-blue-300 cursor-pointer"
                 onClick={() => {
                   navigate(`/book/${book.bookId}`)
                 }}
               >
-                <div className="flex-1 min-w-0">
-                  <h4 className="font-medium text-gray-900 text-sm line-clamp-2 leading-tight">
+                <div className="flex-1">
+                  <h4 className="font-medium text-gray-900 text-sm">
                     {book.title}
                   </h4>
-                  <p className="text-gray-600 text-xs mt-1 truncate">
-                    {book.author}
-                  </p>
+                  <p className="text-gray-600 text-xs mt-1">{book.author}</p>
                   <p className="text-gray-400 text-xs mt-1">
                     {new Date(book.clickedAt).toLocaleDateString()}
                   </p>
